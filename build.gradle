@@ -181,6 +181,7 @@ configurations {
 }
 
 dependencies {
+	compileOnly fileTree(dir: "libs", includes: ['*.jar', '*.zip'])
     // forestry
     compileOnly "net.sengir.forestry:forestry_${project.version_minecraft}:${project.version_forestry}:api"
     runtimeOnly "net.sengir.forestry:forestry_${project.version_minecraft}:${project.version_forestry}"

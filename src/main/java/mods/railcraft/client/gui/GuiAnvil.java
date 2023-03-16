@@ -84,6 +84,7 @@ public class GuiAnvil extends GuiContainer implements IContainerListener {
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         OpenGL.glDisable(GL11.GL_LIGHTING);
+        OpenGL.glDisable(GL11.GL_BLEND);
         fontRenderer.drawString(I18n.format("container.repair"), 60, 6, 4210752);
 
         if (repairContainer.maximumCost > 0) {
@@ -159,7 +160,9 @@ public class GuiAnvil extends GuiContainer implements IContainerListener {
     public void drawScreen(int par1, int par2, float par3) {
         drawDefaultBackground();
         super.drawScreen(par1, par2, par3);
+        renderHoveredToolTip(par1, par2);
         OpenGL.glDisable(GL11.GL_LIGHTING);
+        OpenGL.glDisable(GL11.GL_BLEND);
         itemNameField.drawTextBox();
     }
 
