@@ -90,15 +90,18 @@ public final class StructurePattern {
 //    }
 
     public char getPatternMarker(BlockPos posInPattern) {
-        return getPatternMarker(posInPattern.getX(), posInPattern.getY(), posInPattern.getZ());
+        int x = posInPattern.getX();
+        int y = posInPattern.getY();
+        int z = posInPattern.getZ();
+        if (x < 0 || y < 0 || z < 0)
+            return EMPTY_MARKER;
+        if (x >= getPatternWidthX() || y >= getPatternHeight() || z >= getPatternWidthZ())
+            return EMPTY_MARKER;
+        return getPatternMarker(x, y, z);
     }
 
     public char getPatternMarker(int x, int y, int z) {
-        try {
-            return pattern[x][y][z];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return EMPTY_MARKER;
-        }
+        return pattern[y][x][z];
     }
 
     public char getPatternMarker(Vec3i vec) {
