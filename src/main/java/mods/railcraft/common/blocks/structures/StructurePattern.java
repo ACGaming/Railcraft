@@ -94,7 +94,11 @@ public final class StructurePattern {
     }
 
     public char getPatternMarker(int x, int y, int z) {
-        return pattern[y][x][z];
+        try {
+            return pattern[x][y][z];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return EMPTY_MARKER;
+        }
     }
 
     public char getPatternMarker(Vec3i vec) {
