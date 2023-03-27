@@ -83,33 +83,31 @@ public class IC2EmitterLogic extends Logic implements ILocatable, IMetaDelegate,
         super.onStructureChanged(isComplete, isMaster, data);
         ifWorld(world -> {
             if (Game.isHost(world)) {
-                if(isMaster) {
-                    if (isComplete) addToNet();
-                    else dropFromNet();
-                }
+                if (isMaster) addToNet();
+                else dropFromNet();
             }
         });
     }
 
     public void addToNet() {
-        if(added) return;
-        added = true;
+        dropFromNet();
         try {
             rebuildSubTiles();
             IC2Plugin.addTileToNet(this);
         } catch (Throwable error) {
             Game.log().api("IndustrialCraft", error);
         }
+        added = true;
     }
 
     public void dropFromNet() {
-        if (!added) return;
+        if (added)
+            try {
+                IC2Plugin.removeTileFromNet(this);
+            } catch (Throwable error) {
+                Game.log().api("IndustrialCraft", error);
+            }
         added = false;
-        try {
-            IC2Plugin.removeTileFromNet(this);
-        } catch (Throwable error) {
-            Game.log().api("IndustrialCraft", error);
-        }
     }
 
     @Override
